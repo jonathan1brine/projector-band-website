@@ -17,14 +17,14 @@ const GIGS = [
     date: "2025-05-29",
     venue: "The Gov Upstairs",
     city: "Adelaide, SA",
-    event: "Space Coyote / Carr Accident / Shopkeeper / Projector",
+    event: "Space Coyote // Carr Accident // Shopkeeper // Projector",
     ticketUrl: null,
   },
   {
     date: "2025-05-21",
     venue: "Lowlife Bar",
     city: "Adelaide, SA",
-    event: "Blue Hour // Projector // Goldfish — Debut Gig",
+    event: "Blue Hour // Projector // Goldfish",
     ticketUrl: null,
   },
 ];
