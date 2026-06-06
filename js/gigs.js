@@ -17,14 +17,14 @@ const GIGS = [
     date: "2025-05-29",
     venue: "The Gov Upstairs",
     city: "Adelaide, SA",
-    event: "Space Coyote // Carr Accident // Shopkeeper // Projector",
+    event: "Space Coyote / Carr Accident / Shopkeeper / Projector",
     ticketUrl: null,
   },
   {
     date: "2025-05-21",
     venue: "Lowlife Bar",
     city: "Adelaide, SA",
-    event: "Blue Hour // Projector // Goldfish",
+    event: "Blue Hour // Projector // Goldfish, Debut Gig",
     ticketUrl: null,
   },
 ];
@@ -65,7 +65,7 @@ function buildGigCard(gig) {
 
   const venue = document.createElement("div");
   venue.className = "gig-venue";
-  venue.textContent = `${gig.city}${gig.event ? " — " + gig.event : ""}`;
+  venue.textContent = `${gig.city}${gig.event ? ", " + gig.event : ""}`;
 
   info.appendChild(venueName);
   info.appendChild(venue);
