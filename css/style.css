@@ -1,101 +1,383 @@
-/* =========================================
-   style.css — Projector
-   Stripped to structure only.
-   No colours, no fonts, no theme — Luci adds all of that.
-   This just makes the layout work.
-   ========================================= */
+/* ==========================================================================
+   PROJECTOR — stylesheet (clean)
+   --------------------------------------------------------------------------
+   Three moves: flat rust logo block, one warm serif used only on the
+   tagline + venue names, hairline rules everywhere else. No shadows,
+   no texture, no rotation.
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+   Classes below are matched to the real gigs.js / main.js:
+     .gig-card > .gig-date (full formatted date string, one span)
+                > .gig-info > .gig-venue-name (venue) + .gig-venue (city/event)
+                > .gig-ticket-link (only rendered when a ticketUrl exists)
+     empty state: <p class="loading">
+     main.js toggles `.open` on .nav-links
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;1,400&display=swap');
+
+:root {
+  --paper:     #F2E8D6;
+  --ink:       #1B1611;
+  --ink-soft:  #4A4038;
+  --rust:      #BE4E29;
+  --rust-dark: #973D20;
+  --olive:     #6B6845;
+  --line:      rgba(27, 22, 17, 0.14);
+
+  --font-mark:   Arial, Helvetica, 'Helvetica Neue', sans-serif;
+  --font-accent: 'Fraunces', Georgia, serif;
+
+  --wrap: 1040px;
 }
 
-img {
-  max-width: 100%;
-  display: block;
-}
+/* ==========================================================================
+   Reset + base
+   ========================================================================== */
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-/* page sticks footer to bottom */
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mark);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* --- Nav --- */
+h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.1; }
+p { margin: 0 0 1em; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+::selection { background: var(--rust); color: var(--paper); }
+:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 24px; }
+
+/* ==========================================================================
+   Nav
+   ========================================================================== */
+
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 20px 24px;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-logo {
+  font-family: var(--font-mark);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  background: var(--rust);
+  padding: 6px 11px;
+  text-transform: lowercase;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
+
+.nav-links a {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a.active { border-bottom-color: var(--ink); }
 
 .nav-toggle {
   display: none;
   background: none;
-  border: none;
+  border: 1px solid var(--ink);
+  width: 38px;
+  height: 38px;
+  font-size: 1.1rem;
   cursor: pointer;
-  font: inherit;
+  color: var(--ink);
 }
 
-/* --- Main --- */
-main {
-  flex: 1;
+@media (max-width: 640px) {
+  .nav-toggle { display: block; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 24px;
+    left: 24px;
+    flex-direction: column;
+    gap: 0;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    display: none;
+  }
+
+  .nav-links.open { display: flex; }
+  .nav-links li { border-top: 1px solid var(--line); }
+  .nav-links li:first-child { border-top: none; }
+  .nav-links a { display: block; padding: 14px 16px; border-bottom: none; }
+}
+
+/* ==========================================================================
+   Hero
+   --------------------------------------------------------------------------
+   The photo box holds its own aspect ratio (close to the source image's
+   3:2) instead of a fixed viewport-height box. That's what stops the
+   ultrawide "stretched and zoomed in" problem — width no longer runs
+   away from height. A max-width above tablet size means very wide
+   monitors letterbox (ink bars either side) instead of over-cropping.
+   On mobile the box stays short and close to the real aspect ratio so
+   the sides of the photo don't get cropped off either.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  background: var(--ink);
+}
+
+.hero-photo {
+  position: relative;
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
+  aspect-ratio: 3 / 2;
+  min-height: 260px;
+  max-height: 62vh;
+  overflow: hidden;
 }
 
-section {
-  margin-bottom: 3rem;
+@media (min-width: 768px) {
+  .hero-photo {
+    max-width: 1800px;
+    margin-inline: auto;
+    min-height: 440px;
+    max-height: 82vh;
+  }
+}
+
+.hero-photo img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  filter: grayscale(0.55) contrast(1.1) brightness(0.85);
+}
+
+/* brand-colour tint */
+.hero-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--rust);
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+}
+
+/* vignette: dark at top (for the wordmark) and bottom (for the tagline/
+   buttons), clear through the middle so the band stays visible */
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(27,22,17,0.62) 0%,
+    rgba(27,22,17,0.12) 24%,
+    rgba(27,22,17,0.04) 46%,
+    rgba(27,22,17,0.14) 62%,
+    rgba(27,22,17,0.85) 87%,
+    rgba(27,22,17,0.92) 100%
+  );
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 20px 26px;
+}
+
+@media (min-width: 768px) {
+  .hero-content { padding: 32px 32px 44px; }
+}
+
+.hero-title { text-align: center; }
+
+.hero-title h1 {
+  font-family: var(--font-mark);
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  font-size: clamp(1.9rem, 1.3rem + 3.5vw, 3.6rem);
+  margin: 0;
+}
+
+.hero-bottom { max-width: 480px; }
+
+.hero .tagline {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--paper);
+  opacity: 0.85;
+  margin: 0 0 20px;
 }
 
 .hero-links {
   display: flex;
-  gap: 1rem;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
-/* --- Gig rows --- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-mark);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 13px 22px;
+  background: var(--rust);
+  color: var(--paper);
+  border: 1px solid var(--rust);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover { background: var(--rust-dark); border-color: var(--rust-dark); }
+
+.btn-outline {
+  background: transparent;
+  border-color: rgba(242, 232, 214, 0.5);
+}
+
+.btn-outline:hover { border-color: var(--paper); background: transparent; }
+
+/* ==========================================================================
+   Gigs — plain list. Date, venue, ticket. One hairline rule between rows.
+   ========================================================================== */
+
+.upcoming-gigs-preview,
+.gigs-section {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+
+.upcoming-gigs-preview h2,
+.gigs-section h2 {
+  font-family: var(--font-mark);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--olive);
+  margin-bottom: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gigs-section h2:not(:first-child) { margin-top: 48px; }
+
+#gig-preview, #upcoming-gigs, #past-gigs { margin-bottom: 20px; }
+
+.loading {
+  padding: 20px 0;
+  color: var(--ink-soft);
+}
+
 .gig-card {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 0;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
 }
 
-/* --- Footer --- */
+.gig-date {
+  flex: 0 0 auto;
+  min-width: 118px;
+  font-family: var(--font-mark);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--rust);
+}
+
+.gig-info { flex: 1; min-width: 0; }
+
+.gig-venue-name {
+  font-family: var(--font-accent);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.gig-venue { font-size: 0.84rem; color: var(--ink-soft); margin-top: 2px; }
+
+.gig-ticket-link {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+}
+
+.gig-ticket-link:hover { color: var(--rust); border-color: var(--rust); }
+
+#past-gigs .gig-card { opacity: 0.55; }
+
+@media (max-width: 560px) {
+  .gig-card { flex-wrap: wrap; }
+  .gig-date { min-width: 0; }
+}
+
+.page-header {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 56px 24px 0;
+}
+
+.page-header h1 {
+  font-family: var(--font-mark);
+  text-transform: lowercase;
+  font-size: clamp(2rem, 1.6rem + 2vw, 2.8rem);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
 footer {
-  padding: 2rem;
+  padding: 40px 24px;
+  text-align: center;
+  border-top: 1px solid var(--line);
 }
 
-/* --- Mobile nav --- */
-@media (max-width: 640px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-toggle {
-    display: block;
-  }
-}
+footer p { margin: 0 0 6px; font-size: 0.82rem; color: var(--ink-soft); }
+footer a:hover { color: var(--rust); }
