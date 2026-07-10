@@ -16,7 +16,7 @@ const GIGS = [
     venue: "The Gov Upstairs",
     city: "Adelaide, SA",
     event: "Sunday / Projector / Rusthaven / BLuehour",
-    ticketUrl: null,
+    ticketUrl: https://www.instagram.com/liveandlocaladelaide/,
   },
   // ---- PAST ----
   {
