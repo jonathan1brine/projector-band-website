@@ -11,7 +11,13 @@ const GIGS = [
   //   event: "Friday Night Live",
   //   ticketUrl: "https://yourticketlink.com",
   // },
-
+  {
+    date: "2026-08-07",
+    venue: "The Gov Upstairs",
+    city: "Adelaide, SA",
+    event: "Sunday / Projector / Rusthaven / BLuehour",
+    ticketUrl: null,
+  },
   // ---- PAST ----
   {
     date: "2026-05-29",
