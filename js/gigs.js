@@ -18,6 +18,14 @@ const GIGS = [
     event: "Sunday / Projector / Rusthaven / Bluehour",
     ticketUrl: "https://www.instagram.com/liveandlocaladelaide/",
   },
+
+  {
+    date: "2026-07-24",
+    venue: "The Gov Upstairs",
+    city: "Adelaide, SA",
+    event: "Sugar Tongue / Sunday / Projector / The Stubbies",
+    ticketUrl: "https://www.trybooking.com/events/landing/1615120",
+  },
   // ---- PAST ----
   {
     date: "2026-05-29",
