@@ -12,6 +12,14 @@ const GIGS = [
   //   ticketUrl: "https://yourticketlink.com",
   // },
   {
+    date: "2026-08-22",
+    venue: "Rhino Room",
+    city: "Adelaide, SA",
+    event: "Projector / Shopkeeper / The Empty Heads",
+    ticketUrl: "https://events.humanitix.com/breakthru-presents-projector-shopkeeper-empty-heads-rhino-room?utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3",
+  },
+    // ---- PAST ----
+  {
     date: "2026-08-07",
     venue: "The Gov Upstairs",
     city: "Adelaide, SA",
@@ -26,7 +34,6 @@ const GIGS = [
     event: "Sugar Tongue / Sunday / Projector / The Stubbies",
     ticketUrl: "https://www.trybooking.com/events/landing/1615120",
   },
-  // ---- PAST ----
   {
     date: "2026-05-29",
     venue: "The Gov Upstairs",
