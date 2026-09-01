@@ -12,13 +12,20 @@ const GIGS = [
   //   ticketUrl: "https://yourticketlink.com",
   // },
   {
+    date: "2026-09-16",
+    venue: "The Ed Castle",
+    city: "Adelaide, SA",
+    event: "The Stubbies / Projector / COVE / Jaded Earth",
+  },
+    // ---- PAST ----
+    {
     date: "2026-08-22",
     venue: "Rhino Room",
     city: "Adelaide, SA",
     event: "Projector / Shopkeeper / The Empty Heads",
     ticketUrl: "https://events.humanitix.com/breakthru-presents-projector-shopkeeper-empty-heads-rhino-room?utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3",
   },
-    // ---- PAST ----
+  
   {
     date: "2026-08-07",
     venue: "The Gov Upstairs",
