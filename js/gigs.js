@@ -12,6 +12,13 @@ const GIGS = [
   //   ticketUrl: "https://yourticketlink.com",
   // },
   {
+    date: "2026-10-23",
+    venue: "Unibar",
+    city: "Adelaide, SA",
+    event: "Future Sounds Festival",
+  },
+  
+  {
     date: "2026-09-16",
     venue: "The Ed Castle",
     city: "Adelaide, SA",
