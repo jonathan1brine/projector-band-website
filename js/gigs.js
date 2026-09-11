@@ -12,6 +12,14 @@ const GIGS = [
   //   ticketUrl: "https://yourticketlink.com",
   // },
   {
+    date: "2026-10-03",
+    venue: "The Ed Castle",
+    city: "Adelaide, SA",
+    event: "barrelhead., Liquid Mercury, projector.",
+    ticketUrl: "https://moshtix.com.au/v2/event/barrelhead-wasting-time-single-launch/200093?utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3"
+  },
+
+    {
     date: "2026-10-23",
     venue: "Unibar",
     city: "Adelaide, SA",
@@ -22,44 +30,41 @@ const GIGS = [
     date: "2026-09-16",
     venue: "The Ed Castle",
     city: "Adelaide, SA",
-    event: "The Stubbies / Projector / COVE / Jaded Earth",
+    event: "The Stubbies / projector. / COVE / Jaded Earth",
   },
     // ---- PAST ----
     {
     date: "2026-08-22",
     venue: "Rhino Room",
     city: "Adelaide, SA",
-    event: "Projector / Shopkeeper / The Empty Heads",
-    ticketUrl: "https://events.humanitix.com/breakthru-presents-projector-shopkeeper-empty-heads-rhino-room?utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3",
+    event: "projector. / Shopkeeper / The Empty Heads",
   },
   
   {
     date: "2026-08-07",
     venue: "The Gov Upstairs",
     city: "Adelaide, SA",
-    event: "Sunday / Projector / Rusthaven / Bluehour",
-    ticketUrl: "https://www.trybooking.com/events/landing/1615126",
+    event: "Sunday / projector. / Rusthaven / Bluehour",
   },
 
   {
     date: "2026-07-24",
     venue: "The Gov Upstairs",
     city: "Adelaide, SA",
-    event: "Sugar Tongue / Sunday / Projector / The Stubbies",
-    ticketUrl: "https://www.trybooking.com/events/landing/1615120",
+    event: "Sugar Tongue / Sunday / projector. / The Stubbies",
   },
   {
     date: "2026-05-29",
     venue: "The Gov Upstairs",
     city: "Adelaide, SA",
-    event: "Space Coyote / Carr Accident / Shopkeeper / Projector",
+    event: "Space Coyote / Carr Accident / Shopkeeper / projector.",
     ticketUrl: null,
   },
   {
     date: "2026-05-21",
     venue: "Lowlife Bar",
     city: "Adelaide, SA",
-    event: "Blue Hour // Projector // Goldfish, Debut Gig",
+    event: "Blue Hour // projector. // Goldfish, Debut Gig",
     ticketUrl: null,
   },
 ];
