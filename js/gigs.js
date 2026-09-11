@@ -24,6 +24,7 @@ const GIGS = [
     venue: "Unibar",
     city: "Adelaide, SA",
     event: "Future Sounds Festival",
+    ticketUrl: "https://moshtix.com.au/v2/event/future-sounds-2026-i-a-free-entry-all-ages-festival-of-new-sa-music/199720?utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3"
   },
   
   {
