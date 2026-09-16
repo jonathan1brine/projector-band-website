@@ -11,6 +11,13 @@ const GIGS = [
   //   event: "Friday Night Live",
   //   ticketUrl: "https://yourticketlink.com",
   // },
+    {
+    date: "2026-10-24",
+    venue: "The Exeter",
+    city: "Adelaide, SA",
+    event: "Shopkeeper, Soulkeepers, projector.",
+  },
+  
   {
     date: "2026-10-03",
     venue: "The Ed Castle",
