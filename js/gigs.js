@@ -17,6 +17,13 @@ const GIGS = [
     city: "Adelaide, SA",
     event: "Shopkeeper, Soulkeepers, projector.",
   },
+
+    {
+    date: "2026-10-23",
+    venue: "Grace Emily Hotel",
+    city: "Adelaide, SA",
+    event: "RIDDLES SINGLE LAUNCH, Cove, South Coast, projector.",
+  },
   
   {
     date: "2026-10-03",
