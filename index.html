@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="theme-color" content="#14100c" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projector</title>
+  <title>projector. | indie but loud, Adelaide</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-  <meta name="description" content="Projector - indie rock band from Adelaide, SA." />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="projector. are an indie band from Adelaide, SA. Debut single Riddles out 23 October 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="projector." />
+  <meta property="og:description" content="indie but loud // Adelaide. Debut single Riddles out 23 October." />
+  <meta property="og:image" content="https://projector.band/images/og-image.jpg" />
+  <meta property="og:url" content="https://projector.band/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="css/style.css?v=1" />
 </head>
 <body>
 
@@ -22,42 +29,90 @@
   <main>
     <section class="hero">
       <div class="hero-photo">
-        <img src="images/band-park.jpg" alt="Projector" />
-
+        <img src="images/band-park.jpg" alt="projector. standing in a park at dusk" />
         <div class="hero-content">
           <div class="hero-spacer-top"></div>
-          <div class="hero-title">
-            <h1>projector.</h1>
-          </div>
+          <div class="hero-title"><h1>projector.</h1></div>
           <div class="hero-spacer-mid"></div>
           <div class="hero-bottom">
             <p class="tagline">indie but loud // Adelaide, Australia</p>
             <div class="hero-links">
-              <a href="/gigs" class="btn">See Gigs</a>
-              <a href="https://www.instagram.com/projector.band" target="_blank" class="btn btn-outline">Instagram</a>
-              <a href="https://tiktok.com/@projector.aus" target="_blank" class="btn btn-outline">TikTok</a>
+              <a data-riddles-btn="hero" class="btn" href="#riddles">Riddles</a>
+              <a href="/gigs" class="btn btn-outline">See Gigs</a>
+              <a href="https://www.instagram.com/projector.band" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
+              <a href="https://tiktok.com/@projector.aus" target="_blank" rel="noopener" class="btn btn-outline">TikTok</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="upcoming-gigs-preview">
-      <h2>Upcoming Gigs</h2>
-      <div id="gig-preview">
-        <p class="loading">Loading gigs...</p>
+    <!-- RIDDLES: the button and date update themselves from the sheet -->
+    <section class="riddles" id="riddles">
+      <div class="riddles-inner">
+        <div class="riddles-cover">
+          <img src="images/riddles-cover.jpg" alt="Riddles cover art: two abandoned projectors floating in still water" />
+        </div>
+        <div class="riddles-text">
+          <p class="eyebrow" id="riddles-eyebrow">our debut single</p>
+          <h2 class="riddles-title">Riddles</h2>
+          <a data-riddles-btn="block" class="btn btn-big" hidden>Pre-save Riddles</a>
+          <p id="riddles-soon" class="soon" hidden>pre-save link coming soon</p>
+        </div>
       </div>
+    </section>
+
+    <section class="section">
+      <h2 class="eyebrow-h">Upcoming gigs</h2>
+      <div id="gig-preview"><p class="loading">Loading gigs...</p></div>
       <a href="/gigs" class="btn">All Gigs</a>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="about-grid">
+        <img id="about-photo" class="about-photo" alt="projector." hidden />
+        <div>
+          <h2 class="section-title">about</h2>
+          <!-- Swap this for the bio from the EPK whenever you like -->
+          <p>projector. was formed in the northern suburbs of Adelaide in April 2026 by four mates with one thing in common: a love of rock music. The band's sound is versatile: an eclectic blend of indie rock, classic rock, alternative, and synth pop.</p>
+          <p>With an audience and fan-focused philosophy, they endeavour to write crowd-pleasers that involve the audience just as much as themselves as artists.</p>
+          <p><a class="text-link" href="mailto:projectorbandadl@gmail.com">projectorbandadl@gmail.com</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- hidden until you add your Buttondown username in js/config.js -->
+    <section class="signup" id="signup">
+      <div class="signup-inner">
+        <h2 class="section-title">stay in the loop</h2>
+        <p>New music and shows, a few emails a year. No spam.</p>
+        <form id="signup-form" method="post" class="signup-form">
+          <label class="sr-only" for="signup-email">Email address</label>
+          <input id="signup-email" type="email" name="email" placeholder="you@email.com" required />
+          <button type="submit" class="btn">Sign up</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="photos">
+      <h2 class="section-title">photos</h2>
+      <div id="gallery-grid" class="gallery"></div>
     </section>
   </main>
 
   <footer>
-    <p>© <span id="year">2026</span> Projector. Adelaide, SA.</p>
-    <p>Photo credit: <a href="https://www.instagram.com/orlandoprimaro/" target="_blank" rel="noopener noreferrer">Orlando Primaro</a></p>
+    <p class="socials">
+      <a href="https://www.instagram.com/projector.band" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com/@projector.aus" target="_blank" rel="noopener">TikTok</a>
+      <a id="footer-spotify" href="#" target="_blank" rel="noopener" hidden>Spotify</a>
+    </p>
+    <p>© <span id="year">2026</span> projector. Adelaide, SA.</p>
+    <p>All photos by <a href="https://www.instagram.com/orlandoprimaro/" target="_blank" rel="noopener noreferrer">Orlando Primaro</a></p>
     <p><a href="mailto:projectorbandadl@gmail.com">projectorbandadl@gmail.com</a></p>
   </footer>
 
-  <script src="js/gigs.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/config.js?v=1"></script>
+  <script src="js/main.js?v=1"></script>
+  <script src="js/gigs.js?v=1"></script>
 </body>
 </html>

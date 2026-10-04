@@ -1,178 +1,117 @@
-// gigs.js — Edit the GIGS array to add/remove shows
-// Date format: "YYYY-MM-DD"
+// gigs.js: reads gigs from your Google Sheet and draws them. No need to edit.
+(function () {
+  const S = window.SITE || {};
+  const U = window.SiteUtil;
+  const $ = (id) => document.getElementById(id);
+  const CACHE_KEY = "projector_site_v1";
 
-const GIGS = [
-  // ---- UPCOMING ----
-  // Add upcoming gigs here like this:
-  // {
-  //   date: "2025-07-12",
-  //   venue: "The Gov",
-  //   city: "Adelaide, SA",
-  //   event: "Friday Night Live",
-  //   ticketUrl: "https://yourticketlink.com",
-  // },
-    {
-    date: "2026-10-24",
-    venue: "The Exeter",
-    city: "Adelaide, SA",
-    event: "Shopkeeper, Soulkeepers, projector.",
-  },
-
-    {
-    date: "2026-10-23",
-    venue: "Grace Emily Hotel",
-    city: "Adelaide, SA",
-    event: "RIDDLES SINGLE LAUNCH, Cove, South Coast, projector.",
-  },
-  
-  {
-    date: "2026-10-03",
-    venue: "The Ed Castle",
-    city: "Adelaide, SA",
-    event: "barrelhead., Liquid Mercury, projector.",
-    ticketUrl: "https://moshtix.com.au/v2/event/barrelhead-wasting-time-single-launch/200093?utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3"
-  },
-
-    {
-    date: "2026-10-23",
-    venue: "Unibar",
-    city: "Adelaide, SA",
-    event: "Future Sounds Festival",
-    ticketUrl: "https://moshtix.com.au/v2/event/future-sounds-2026-i-a-free-entry-all-ages-festival-of-new-sa-music/199720?utm_source=ig&utm_medium=social&utm_content=link_in_bio&utm_id=97760_v0_s00_e0_tv3"
-  },
-  
-  {
-    date: "2026-09-16",
-    venue: "The Ed Castle",
-    city: "Adelaide, SA",
-    event: "The Stubbies / projector. / COVE / Jaded Earth",
-  },
-    // ---- PAST ----
-    {
-    date: "2026-08-22",
-    venue: "Rhino Room",
-    city: "Adelaide, SA",
-    event: "projector. / Shopkeeper / The Empty Heads",
-  },
-  
-  {
-    date: "2026-08-07",
-    venue: "The Gov Upstairs",
-    city: "Adelaide, SA",
-    event: "Sunday / projector. / Rusthaven / Bluehour",
-  },
-
-  {
-    date: "2026-07-24",
-    venue: "The Gov Upstairs",
-    city: "Adelaide, SA",
-    event: "Sugar Tongue / Sunday / projector. / The Stubbies",
-  },
-  {
-    date: "2026-05-29",
-    venue: "The Gov Upstairs",
-    city: "Adelaide, SA",
-    event: "Space Coyote / Carr Accident / Shopkeeper / projector.",
-    ticketUrl: null,
-  },
-  {
-    date: "2026-05-21",
-    venue: "Lowlife Bar",
-    city: "Adelaide, SA",
-    event: "Blue Hour // projector. // Goldfish, Debut Gig",
-    ticketUrl: null,
-  },
-];
-
-// ---- Rendering — you don't need to touch anything below this line ----
-
-function isUpcoming(dateStr) {
-  const gigDate = new Date(dateStr);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return gigDate >= today;
-}
-
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-AU", {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-function buildGigCard(gig) {
-  const card = document.createElement("div");
-  card.className = "gig-card";
-
-  const dateEl = document.createElement("span");
-  dateEl.className = "gig-date";
-  dateEl.textContent = formatDate(gig.date);
-
-  const info = document.createElement("div");
-  info.className = "gig-info";
-
-  const venueName = document.createElement("div");
-  venueName.className = "gig-venue-name";
-  venueName.textContent = gig.venue;
-
-  const venue = document.createElement("div");
-  venue.className = "gig-venue";
-  venue.textContent = `${gig.city}${gig.event ? ", " + gig.event : ""}`;
-
-  info.appendChild(venueName);
-  info.appendChild(venue);
-  card.appendChild(dateEl);
-  card.appendChild(info);
-
-  if (gig.ticketUrl) {
-    const link = document.createElement("a");
-    link.href = gig.ticketUrl;
-    link.target = "_blank";
-    link.className = "gig-ticket-link";
-    link.textContent = "Tickets →";
-    card.appendChild(link);
-  }
-
-  return card;
-}
-
-function renderGigs() {
-  const upcoming = GIGS.filter((g) => isUpcoming(g.date)).sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
-  );
-  const past = GIGS.filter((g) => !isUpcoming(g.date)).sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
-
-  // Full gigs page
-  const upcomingEl = document.getElementById("upcoming-gigs");
-  const pastEl = document.getElementById("past-gigs");
-
-  if (upcomingEl) {
-    if (upcoming.length === 0) {
-      upcomingEl.innerHTML = '<p class="loading">No upcoming shows announced. Check back soon.</p>';
-    } else {
-      upcoming.forEach((g) => upcomingEl.appendChild(buildGigCard(g)));
+  // ---- CSV ----
+  function parseCSV(t) {
+    const rows = []; let row = [], f = "", q = false;
+    for (let i = 0; i < t.length; i++) {
+      const c = t[i];
+      if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true;
+      else if (c === ",") { row.push(f); f = ""; }
+      else if (c === "\n" || c === "\r") { if (c === "\r" && t[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; }
+      else f += c;
     }
+    if (f !== "" || row.length) { row.push(f); rows.push(row); }
+    return rows;
+  }
+  const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+  function fromCSV(text) {
+    const rows = parseCSV(text).filter((r) => r.some((c) => c.trim()));
+    if (!rows.length) return null;
+    const head = rows[0].map((h) => h.trim().toLowerCase());
+    if (head.indexOf("date") < 0) return null; // not our sheet (e.g. a login page)
+    const get = (r, n) => { const i = head.indexOf(n); return i > -1 ? (r[i] || "").trim() : ""; };
+    const gigs = [], settings = {};
+    rows.slice(1).forEach((r) => {
+      const d = U.parseDate(get(r, "date"));
+      if (d) gigs.push({ date: iso(d), venue: get(r, "venue"), doors: get(r, "doors"), lineup: get(r, "lineup"),
+        free: U.isTrue(get(r, "free")), tickets: get(r, "tickets") });
+      const k = get(r, "setting");
+      if (k) settings[k.toLowerCase()] = get(r, "value");
+    });
+    return { gigs, settings };
   }
 
-  if (pastEl) {
-    past.forEach((g) => pastEl.appendChild(buildGigCard(g)));
+  // ---- drawing ----
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const dateOf = (g) => U.parseDate(g.date);
+
+  // "Event name // Band, Band, projector." (projector. is always put last)
+  function formatLineup(raw) {
+    raw = (raw || "").trim();
+    if (!raw) return "";
+    let title = "", bands = raw;
+    const m = raw.match(/^(.*?)\s*(?:\/\/|\|)\s*(.*)$/);
+    if (m) { title = m[1].trim(); bands = m[2].trim(); }
+    let list = bands.split(/\s*,\s*|\s+\/\s+|\s+\+\s+/).filter(Boolean).map((b) => (/^projector\.?$/i.test(b) ? "projector." : b));
+    const mine = list.filter((b) => b === "projector.");
+    list = list.filter((b) => b !== "projector.").concat(mine);
+    const text = list.join(", ");
+    return title ? (text ? title + " // " + text : title) : text;
   }
 
-  // Homepage preview (shows next 2 upcoming)
-  const previewEl = document.getElementById("gig-preview");
-  if (previewEl) {
-    previewEl.innerHTML = "";
-    if (upcoming.length === 0) {
-      previewEl.innerHTML = '<p class="loading">No upcoming shows right now.</p>';
-    } else {
-      upcoming.slice(0, 2).forEach((g) => previewEl.appendChild(buildGigCard(g)));
-    }
+  function actions(g) {
+    const box = el("div", "gig-actions");
+    if (g.free) box.appendChild(el("span", "badge badge-free", "Free entry"));
+    const url = U.safeUrl(g.tickets);
+    if (url) { const a = el("a", "gig-ticket-link", g.free ? "Free tickets \u2192" : "Tickets \u2192"); a.href = url; a.target = "_blank"; a.rel = "noopener"; box.appendChild(a); }
+    return box.children.length ? box : null;
   }
-}
 
-renderGigs();
+  function gigCard(g) {
+    const d = dateOf(g);
+    const card = el("div", "gig-card");
+    const date = el("span", "gig-date", d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" }));
+    date.appendChild(el("small", "", String(d.getFullYear())));
+    const info = el("div", "gig-info");
+    info.appendChild(el("div", "gig-venue-name", g.venue));
+    const sub = formatLineup(g.lineup);
+    if (sub) info.appendChild(el("div", "gig-venue", sub));
+    card.append(date, info);
+    const a = actions(g); if (a) card.appendChild(a);
+    return card;
+  }
+
+  function fill(id, items, build, emptyMsg) {
+    const box = $(id); if (!box) return;
+    box.innerHTML = "";
+    if (!items.length && emptyMsg) { box.appendChild(el("p", "loading", emptyMsg)); return; }
+    items.forEach((g) => box.appendChild(build(g)));
+  }
+
+  function render(data) {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const up = data.gigs.filter((g) => dateOf(g) >= today).sort((a, b) => dateOf(a) - dateOf(b));
+    const past = data.gigs.filter((g) => dateOf(g) < today).sort((a, b) => dateOf(b) - dateOf(a));
+
+    fill("upcoming-gigs", up, gigCard, "No upcoming shows announced. Check back soon.");
+    fill("past-gigs", past, gigCard);
+    fill("gig-preview", up.slice(0, 3), gigCard, "No upcoming shows right now.");
+    if (window.updateRiddles) window.updateRiddles(data.settings);
+  }
+
+  // ---- load: show saved copy instantly, then refresh from the sheet ----
+  let cached = null;
+  try { cached = JSON.parse(localStorage.getItem(CACHE_KEY)); } catch (e) {}
+  const fallback = { gigs: (S.fallbackGigs || []).map((g) => Object.assign({ free: false }, g)), settings: {} };
+
+  if (cached && cached.gigs) render(cached);
+  if (!S.sheetCsvUrl) { render(fallback); return; }
+
+  const url = S.sheetCsvUrl + (S.sheetCsvUrl.includes("?") ? "&" : "?") + "t=" + Math.floor(Date.now() / 60000);
+  fetch(url, { cache: "no-store" })
+    .then((r) => { if (!r.ok) throw new Error("bad response"); return r.text(); })
+    .then((t) => {
+      const data = fromCSV(t);
+      if (!data) throw new Error("not the gigs sheet");
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)); } catch (e) {}
+      render(data);
+    })
+    .catch(() => { if (!cached) render(fallback); });
+})();

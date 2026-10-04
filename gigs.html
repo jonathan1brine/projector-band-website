@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="theme-color" content="#14100c" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projector Gigs</title>
+  <title>projector. gigs</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-  <meta name="description" content="Live shows from Projector Band, Adelaide." />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="Live shows from projector., Adelaide." />
+  <meta property="og:title" content="projector. gigs" />
+  <meta property="og:description" content="Upcoming and past shows from projector., Adelaide." />
+  <meta property="og:image" content="https://projector.band/images/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="css/style.css?v=1" />
 </head>
 <body>
 
@@ -20,25 +25,32 @@
   </nav>
 
   <main>
-    <section class="page-header">
-      <h1>Gigs.</h1>
+    <section class="hero hero-short">
+      <div class="hero-photo">
+        <!-- swap images/gigs-hero.jpg for your live photo -->
+        <img src="images/gigs-hero.jpg" alt="projector. playing live" onerror="this.remove()" />
+        <div class="hero-content">
+          <div class="hero-title"><h1>gigs.</h1></div>
+        </div>
+      </div>
     </section>
 
-    <section class="gigs-section">
-      <h2>Upcoming</h2>
-      <div id="upcoming-gigs"></div>
-
-      <h2>Past</h2>
+    <section class="section">
+      <h2 class="eyebrow-h">Upcoming</h2>
+      <div id="upcoming-gigs"><p class="loading">Loading gigs...</p></div>
+      <h2 class="eyebrow-h later">Past</h2>
       <div id="past-gigs"></div>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 Projector. Adelaide, SA.</p>
+    <p>© <span id="year">2026</span> projector. Adelaide, SA.</p>
+    <p>All photos by <a href="https://www.instagram.com/orlandoprimaro/" target="_blank" rel="noopener noreferrer">Orlando Primaro</a></p>
     <p><a href="mailto:projectorbandadl@gmail.com">projectorbandadl@gmail.com</a></p>
   </footer>
 
-  <script src="js/gigs.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/config.js?v=1"></script>
+  <script src="js/main.js?v=1"></script>
+  <script src="js/gigs.js?v=1"></script>
 </body>
 </html>
