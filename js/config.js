@@ -5,7 +5,7 @@ window.SITE = {
   sheetCsvUrl: "",
 
   // 2. Backup riddles settings (the sheet's "website" tab overrides these).
-  riddles: { releaseDate: "2026-10-23", presaveUrl: "", listenUrl: "" },
+  riddles: { releaseDate: "2026-10-23", presaveUrl: "https://distrokid.com/hyperfollow/projector2/riddles", listenUrl: "" },
 
   // 3. Spotify artist link (add once the profile exists). Used for the footer and the LISTEN button.
   spotifyUrl: "",
