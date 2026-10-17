@@ -27,7 +27,6 @@ window.SITE = {
   // Only used if the sheet can't be loaded and nothing is saved in the visitor's browser.
   fallbackGigs: [
     { date: "2026-10-23", venue: "Grace Emily Hotel", lineup: "Riddles Single Launch // COVE, South Coast, projector.", free: true },
-    { date: "2026-10-23", venue: "Unibar", lineup: "Future Sounds Festival", free: true, tickets: "https://moshtix.com.au/v2/event/future-sounds-2026-i-a-free-entry-all-ages-festival-of-new-sa-music/199720" },
     { date: "2026-10-24", venue: "The Exeter", lineup: "Halloween Show // Shopkeeper, Soul Keepers, projector.", free: true },
     { date: "2026-10-03", venue: "The Ed Castle", lineup: "Wasting Time Single Launch // barrelhead, Liquid Mercury, projector.", tickets: "https://moshtix.com.au/v2/event/barrelhead-wasting-time-single-launch/200093" },
     { date: "2026-09-16", venue: "The Ed Castle", lineup: "The Stubbies, COVE, Jaded Earth, projector." },
