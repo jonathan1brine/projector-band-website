@@ -26,6 +26,7 @@ window.SITE = {
 
   // Only used if the sheet can't be loaded and nothing is saved in the visitor's browser.
   fallbackGigs: [
+    { date: "2026-11-06", venue: "Lowlife Bar", lineup: "Empty Heads, Tartarus, projector.", tickets: "https://events.humanitix.com/projector-empty-heads-and-tartarus-at-lowlife-basement-bar" },
     { date: "2026-10-23", venue: "Grace Emily Hotel", lineup: "Riddles Single Launch // COVE, South Coast, projector.", free: true },
     { date: "2026-10-24", venue: "The Exeter", lineup: "Halloween Show // Shopkeeper, Soul Keepers, projector.", free: true },
     { date: "2026-10-03", venue: "The Ed Castle", lineup: "Wasting Time Single Launch // barrelhead, Liquid Mercury, projector.", tickets: "https://moshtix.com.au/v2/event/barrelhead-wasting-time-single-launch/200093" },
