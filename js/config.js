@@ -26,7 +26,7 @@ window.SITE = {
 
   // Only used if the sheet can't be loaded and nothing is saved in the visitor's browser.
   fallbackGigs: [
-    { date: "2027-01-16", venue: "Rhino Room", lineup: "CJ "Jorts" Porter, Ledfly, projector. ", free: true },
+    { date: "2027-01-16", venue: "Rhino Room", lineup: "CJ Jorts Porter, Ledfly, projector. ", free: true },
     { date: "2026-11-21", venue: "Rhino Room", lineup: "Adelaide Amplified Fundraiser", tickets: "https://events.humanitix.com/adelaideamplified/tickets" },
     { date: "2026-11-28", venue: "Hotel Metro", lineup: "Will Everest & The Mighty Acid Cat Band, TempL, projector.", free: true },
     { date: "2026-11-06", venue: "Lowlife Bar", lineup: "Empty Heads, Tartarus, projector.", tickets: "https://events.humanitix.com/projector-empty-heads-and-tartarus-at-lowlife-basement-bar" },
